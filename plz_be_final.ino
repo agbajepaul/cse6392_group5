@@ -11,22 +11,21 @@
 #define REMOTEXY_SERVER_PORT 6377
 
 
-// RemoteXY configurate  
-#pragma pack(push, 1)
+
 uint8_t RemoteXY_CONF[] =   // 49 bytes
   { 255,1,0,31,0,42,0,16,112,0,69,0,14,9,10,10,13,67,5,48,
   8,41,10,2,26,21,68,18,16,31,73,25,8,36,135,1,0,30,7,12,
   12,2,31,82,69,83,69,84,0 };
   
-// this structure defines all the variables and events of your control interface 
+
 struct {
 
     // input variables
   uint8_t button_1; // =1 if button pressed, else =0 
 
     // output variables
-  int16_t sound_1; // =0 no sound, else ID of sound, =1001 for example, look sound list in app 
-  char text_1[21];  // string UTF8 end zero 
+  int16_t sound_1; 
+  char text_1[21];  
   float onlineGraph_1_var1;
   float onlineGraph_1_var2;
 
@@ -76,9 +75,6 @@ void loop()
   RemoteXY_Handler ();
   int chk = DHT.read11(DHT11_PIN);
   
-  // TODO you loop code
-  // use the RemoteXY structure for data transfer
-  // do not call delay() 
 
 
   //comment starts here
@@ -104,12 +100,12 @@ void loop()
     
     
     if((old_h - (sum_h/threshold) < 4)){
-      Serial.println("No wahala!! Average_humidity increasing");
+      Serial.println("Average_humidity increasing");
       Serial.println("================================================");
       Serial.println("================================================");
     }
     else{
-      Serial.println("Wahala!! Average_humidity decreasing!!");
+      Serial.println("Average_humidity decreasing!!");
       Serial.println("================================================");
       Serial.println("================================================");
     }
@@ -165,11 +161,7 @@ void loop()
       count_h=0;
       sum_h=0;
     } 
-//  dtostrf(DHT.temperature,0,1,RemoteXY.text_1);
-//  dtostrf(DHT.humidity,0,1,RemoteXY.text_2);
-//  RemoteXY.onlineGraph_1 = DHT.humidity/1000.0;
-//  Serial.println((float)DHT.temperature);
-//  Serial.println((float)DHT.humidity);
+
   if(DHT.temperature!=-999)
   {
 //  delta_t = DHT.temperature - old_t;
@@ -185,15 +177,7 @@ void loop()
   Serial.print("Temp= ");
   Serial.print(mlx.readObjectTempC());
   }
-//  delay(1000);
-//  Serial.print("Ambient = "); Serial.print(mlx.readAmbientTempC());
-//  Serial.print("*C\tObject = "); Serial.print(mlx.readObjectTempC()); Serial.println("*C");
-//  delta_t = mlx.readObjectTempC() - old_t;
-//  old_t = mlx.readObjectTempC();
-  RemoteXY.onlineGraph_1_var1 = mlx.readObjectTempC();
-//  Serial.print("Ambient = "); Serial.print(mlx.readAmbientTempF());
-//  Serial.print("*F\tObject = "); Serial.print(mlx.readObjectTempF()); Serial.println("*F");
 
-//  Serial.println();
-//  delay(500);
+  RemoteXY.onlineGraph_1_var1 = mlx.readObjectTempC();
+
 }
